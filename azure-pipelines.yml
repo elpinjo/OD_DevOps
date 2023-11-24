@@ -45,5 +45,5 @@ steps:
     regionName: 'eu-west-1'
     imageSource: 'imagename'
     sourceImageName: 'sagcr.azurecr.io/odido-edge'
-    repositoryName: '$(imageRepository)/odido-edge'
+    repositoryName: 'odido-edge'
     pushTag: latest
