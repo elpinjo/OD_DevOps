@@ -12,7 +12,7 @@ pool:
 variables:
   imageName: 'wm-edge-od-demo'
   dockerRegistryServiceConnection: 'OdidoECR'
-  imageRepository: 'sag-globalpresales/sag-globalpresales'
+  imageRepository: 'sag-globalpresales'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
   tag: '$(Build.BuildId)'
 
