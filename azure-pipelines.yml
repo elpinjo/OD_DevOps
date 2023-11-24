@@ -12,7 +12,7 @@ pool:
 variables:
   imageName: 'wm-edge-od-demo'
   dockerRegistryServiceConnection: 'OdidoECR'
-  imageRepository: 'sag-globalpresales/mihe-ecr'
+  imageRepository: 'sag-globalpresales/mihe-ecr/odido-edge'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -44,6 +44,6 @@ steps:
     awsCredentials: 'AWS-GlobalPresales'
     regionName: 'eu-west-1'
     imageSource: 'imagename'
-    sourceImageName: 'odido-edge'
-    repositoryName: '$(imageRepository)'
+    sourceImageName: $(imageRepository)
+    repositoryName: $(imageRepository)
     pushTag: latest
