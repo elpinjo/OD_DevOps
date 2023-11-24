@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "cloud-registration-token"
+type: Opaque
+data:
+  token: "f351d8ebb47c4b54b477ebce0749c0736cada2167f654bdda74f9fdacf11c844"
