@@ -1,0 +1,6 @@
+[submodule "container/EdgeNL_OD_Demo"]
+	path = container/EdgeNL_OD_Demo
+	url = https://github.com/elpinjo/EdgeNL_OD_Demo.git
+[submodule "container/OD_Demo_Utils"]
+	path = container/OD_Demo_Utils
+	url = https://github.com/elpinjo/OD_Demo_Utils.git
