@@ -11,6 +11,10 @@ pool:
 
 variables:
   imageName: 'wm-edge-od-demo'
+  dockerRegistryServiceConnection: 'OdidoECR'
+  imageRepository: 'sag-globalpresales/mihe-ecr/odido-edge'
+  dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
+  tag: '$(Build.BuildId)'
 
 steps:
 - script: echo Run Docker
@@ -27,7 +31,10 @@ steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    containerRegistry: 'OdidoECR'
-    repository: public.ecr.aws/sag-globalpresales/
-    command: build
+    containerRegistry: $(dockerRegistryServiceConnection)
+    repository: $(imageRepository)
+    command: buildAndPush
     Dockerfile: container/Dockerfile
+    tags: |
+      latest
+      $(tag)
