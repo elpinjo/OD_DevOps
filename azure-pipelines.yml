@@ -42,7 +42,7 @@ steps:
 - task: ECRPushImage@1
   inputs:
     awsCredentials: 'AWS-GlobalPresales'
-    regionName: 'eu-west-1'
+    regionName: 'us-east-1'
     imageSource: 'imagename'
     sourceImageName: 'public.ecr.aws/odido-edge'
     repositoryName: '$(imageRepository)/odido-edge'
