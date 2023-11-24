@@ -46,6 +46,4 @@ steps:
     imageSource: 'imagename'
     sourceImageName: 'odido-edge'
     repositoryName: '$(imageRepository)'
-    pushTag: |
-      latest
-      $(tag)
+    pushTag: latest
