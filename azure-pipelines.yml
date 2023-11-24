@@ -28,6 +28,7 @@ steps:
   inputs:
     containerRegistry: 'SoftwareAGContainers'
     command: login
+
 - task: Docker@2
   displayName: Build an image
   inputs:
@@ -43,6 +44,6 @@ steps:
     awsCredentials: 'AWS-GlobalPresales'
     regionName: 'eu-west-1'
     imageSource: 'imagename'
-    sourceImageName: '408686349000.dkr.ecr.eu-west-1.amazonaws.com/odido-edge'
+    sourceImageName: 'sagcr.azurecr.io/odido-edge'
     repositoryName: '$(imageRepository)/odido-edge'
     pushTag: latest
