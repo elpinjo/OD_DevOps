@@ -44,6 +44,6 @@ steps:
     awsCredentials: 'AWS-GlobalPresales'
     regionName: 'eu-west-1'
     imageSource: 'imagename'
-    sourceImageName: 'odido-edge:latest'
-    repositoryName: $(imageRepository)
+    sourceImageName: 'odido-edge'
+    repositoryName: '$(imageRepository)/odido-edge'
     pushTag: latest
