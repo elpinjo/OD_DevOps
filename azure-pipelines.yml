@@ -32,7 +32,7 @@ steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: 'odido-edge'
+    repository: 'mihe-odido-edge'
     command: build
     Dockerfile: container/Dockerfile
     tags: |
@@ -44,6 +44,6 @@ steps:
     awsCredentials: 'AWS-GlobalPresales'
     regionName: 'eu-west-1'
     imageSource: 'imagename'
-    sourceImageName: 'sagcr.azurecr.io/odido-edge'
-    repositoryName: 'odido-edge'
+    sourceImageName: 'sagcr.azurecr.io/mihe-odido-edge'
+    repositoryName: 'mihe-odido-edge'
     pushTag: latest
