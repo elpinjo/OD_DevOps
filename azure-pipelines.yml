@@ -16,7 +16,7 @@ steps:
 - script: echo Run Docker
   displayName: 'Run a Docker build script'
 
-- checkout:
+- checkout: self
   submodules: true
 
 - task: Docker@2
