@@ -66,7 +66,7 @@ spec:
                   name: "cloud-registration-token"
                   key: "token"
             - name: "SAG_IS_CLOUD_REGISTER_URL"
-              value: "https://wmintanywhere.int-aw-au.webmethods.io"
+              value: "https://presaleseueplus.int-aws-de.webmethods.io"
             - name: "SECRET_PATH"
               value: "/var/sofwareag/secrets"
       imagePullSecrets:
