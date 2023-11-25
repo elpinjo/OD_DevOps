@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: "edge-runtime"
-          image: "sagcr.azurecr.io/webmethods-edge-runtime:10.16.5"
+          image: "408686349000.dkr.ecr.eu-west-1.amazonaws.com/mihe-odido-edge:latest"
           ports:
             - containerPort: 5555
               protocol: "TCP"
@@ -70,7 +70,7 @@ spec:
             - name: "SECRET_PATH"
               value: "/var/sofwareag/secrets"
       imagePullSecrets:
-        - name: regcred
+        - name: aws-ecr
       volumes:
         - name: config-volume
           configMap:
