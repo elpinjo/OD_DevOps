@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-properties-is
+data:
+  application.properties: |
+    healthindicators.Adapters.enabled=true
+    healthindicators.Cluster.enabled=true
+    healthindicators.Cluster.properties.threshold.value=2
+    healthindicators.Diskspace.enabled=true
+    healthindicators.Diskspace.properties.threshold.value=10
+    healthindicators.JDBC.enabled=true
+    healthindicators.JMS.enabled=true
+    healthindicators.JNDIAliases.enabled=false
+    healthindicators.Memory.enabled=true
+    healthindicators.Memory.properties.threshold.value=10
+    healthindicators.RemoteServers.enabled=true
+    healthindicators.SFTPServers.enabled=true
+    healthindicators.ServiceThread.enabled=true
+    healthindicators.ServiceThread.properties.threshold.value=10
+    healthindicators.Sessions.enabled=true
+    healthindicators.Sessions.properties.threshold.value=85
+    healthindicators.UMAliases.enabled=true
+    globalvariable.ConnectedDemos..config..dir.value=/data
+    truststore.DEFAULT_JVM_TRUSTSTORE.ksPassword=$secret{TruststorePasswordSecretName}
+    user.dummyAdministrator.password=$secret{AdminPassword}
+    jms.DEFAULT_IS_JMS_CONNECTION.clientID=DEFAULT_IS_JMS_CLIENT
+    jndi.DEFAULT_IS_JNDI_PROVIDER.providerURL=nsp\://universalmessaging.swag-infra\:9000
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "edge-runtime"
+  labels:
+    app: "edge-runtime"
+spec:
+  selector:
+    matchLabels:
+      app: "edge-runtime" 
+  template: 
+    metadata:
+      labels:
+        app: "edge-runtime"
+    spec:
+      containers:
+        - name: "edge-runtime"
+          image: "sagcr.azurecr.io/webmethods-edge-runtime:10.16.5"
+          ports:
+            - containerPort: 5555
+              protocol: "TCP"
+            - containerPort: 5443
+              protocol: "TCP"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/swagmsr/config
+            - name: secrets-volume
+              mountPath: /var/softwareag/secrets
+          env:
+            - name: "SAG_IS_CONFIG_PROPERTIES"
+              value: "/opt/swagmsr/config/application.properties"
+            - name: "SAG_IS_EDGE_CLOUD_ALIAS"
+              value: "EdgeRuntime_NL_OD_Demo_EKS"
+            - name: "SAG_IS_CLOUD_REGISTER_TOKEN"
+              valueFrom:
+                secretKeyRef:
+                  name: "cloud-registration-token"
+                  key: "token"
+            - name: "SAG_IS_CLOUD_REGISTER_URL"
+              value: "https://wmintanywhere.int-aw-au.webmethods.io"
+            - name: "SECRET_PATH"
+              value: "/var/sofwareag/secrets"
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: config-volume
+          configMap:
+            name: application-properties-is    
+        - name: secrets-volume
+          secret:
+            secretName: wm-edge-secrets
+  replicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edge-runtime
+  name: edge-runtime-service
+spec: 
+  ports:
+    - name: edge-container-tcp
+      port: 5555
+      protocol: TCP
+      targetPort: 5555
+  selector:
+    app: edge-runtime
+  type: ClusterIP
