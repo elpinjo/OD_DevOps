@@ -73,18 +73,12 @@ spec:
           httpGet:
             path: /health
             port: 5555
-            httpHeaders:
-            - name: Authorization
-              value: "Basic QWRtaW5pc3RyYXRvcjptYW5hZ2U="
           initialDelaySeconds: 20
           periodSeconds: 5
         startupProbe:
           httpGet:
             path: /health
             port: 5555
-            httpHeaders:
-            - name: Authorization
-              value: "Basic QWRtaW5pc3RyYXRvcjptYW5hZ2U="
           failureThreshold: 20
           periodSeconds: 5
       imagePullSecrets:
