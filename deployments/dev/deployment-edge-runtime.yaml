@@ -59,7 +59,7 @@ spec:
             - name: "SAG_IS_CONFIG_PROPERTIES"
               value: "/opt/swagmsr/config/application.properties"
             - name: "SAG_IS_EDGE_CLOUD_ALIAS"
-              value: "EdgeRuntime_NL_OD_Demo_EKS"
+              value: "EdgeRuntime_NL_OD_Edge_AWS"
             - name: "SAG_IS_CLOUD_REGISTER_TOKEN"
               valueFrom:
                 secretKeyRef:
@@ -69,18 +69,26 @@ spec:
               value: "https://wmintanywhere.int-aw-au.webmethods.io"
             - name: "SECRET_PATH"
               value: "/var/sofwareag/secrets"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5555
-          initialDelaySeconds: 20
-          periodSeconds: 5
-        startupProbe:
-          httpGet:
-            path: /health
-            port: 5555
-          failureThreshold: 20
-          periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5555
+              httpHeaders:
+                - name: Accept
+                  value: application/json
+            initialDelaySeconds: 10
+            timeoutSeconds: 15
+            periodSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 5555
+              httpHeaders:
+                - name: Accept
+                  value: application/json
+            failureThreshold: 100
+            timeoutSeconds: 15
+            periodSeconds: 5
       imagePullSecrets:
         - name: regcred
       volumes:
